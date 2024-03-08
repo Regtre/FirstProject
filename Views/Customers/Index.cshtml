@@ -6,23 +6,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="card border-primary mb-3" style="max-width: 20rem;">
-    <div class="card-header">Customers</div>
-    <div class="card-body">
-        @if (Model.Count > 0)
+<table class="table table-hover">
+<thead>
+<tr>
+    <th scope="col">Customers</th>
+    <th scope="col">Discount</th>
+</tr>
+</thead>
+<tbody>
+
+    @if (Model.Count > 0)
+    {
+        foreach (Customer customer in Model)
         {
-            <h4 class="card-title">LIST</h4>
-            foreach (Customer customer in Model)
-            {
-                <p class="card-text">@customer.Name</p>
+            //<a class="card-text" >@customer.Name</a>
+            <tr>
+            <th scope="row">
+                @Html.ActionLink($"{customer.Name}", "Details", "Customers", new { id = customer.Id }
+                    , new { @class = "card-text" })
+            </th>
+            <td>@customer.MembershipType.Name</td>
+            </tr>
 
-            }
         }
-        else
-        {
+    }
+    else
+    {
 
-            <h4 class="card-title">We don't have customers yet.</h4>
-        }
-
-    </div>
-</div>
+        <h4 >We don't have customers yet.</h4>
+    }
+    </tbody>
+    
+</table>

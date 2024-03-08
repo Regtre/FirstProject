@@ -1,12 +1,20 @@
 ﻿using FirstProject.Models;
 using FirstProject.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstProject.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies
+
+        private StoreContext _context;
+
+        public MoviesController()
+        {
+            _context = new StoreContext();
+        }
+
 
         public ActionResult Edit(int id)
         {
@@ -38,14 +46,7 @@ namespace FirstProject.Controllers
             if (String.IsNullOrWhiteSpace(sortBy))
                 sortBy = "Name";
 
-            List<Movie> movies = new List<Movie>
-            {
-                new Movie() { Title = "Hitler" },
-                new Movie() { Title = "Petite sirene" }
-            };
-
-            //return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
-
+            List<Movie> movies= _context.Movies.ToList();
             return View(movies);
         }
 
@@ -53,6 +54,12 @@ namespace FirstProject.Controllers
         public ActionResult ByReleaseDate(int? year, int? month)
         {
             return Content(year + "/" + month);
+        }
+
+        public ActionResult Details(int id)
+        {
+            Movie? movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+            return View(movie);
         }
         
     }

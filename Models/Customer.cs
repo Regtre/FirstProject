@@ -16,7 +16,7 @@ namespace FirstProject.Models
         public bool IsSubscribeToNewsletter { get; set; }
 
         public MembershipType MembershipType { get; set; }
-
+        
         public byte MembershipTypeId { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
@@ -25,5 +25,8 @@ namespace FirstProject.Models
         public string Country { get; set; }
         public string Phone { get; set; }
         public string Email{ get; set; }
+
+        [Display(Name = "Date of Birth") ]
+        public DateOnly? BirthDate { get; set; }
     }
 }

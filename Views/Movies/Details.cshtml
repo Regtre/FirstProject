@@ -1,0 +1,18 @@
+﻿@model FirstProject.Models.Movie?
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card border-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header">Movie Detail</div>
+    <div class="card-body">
+        <h4 class="card-title">@Model.Title</h4>
+
+        <p class="card-text">@string.Concat(nameof(@Model.Genre).Select(x => Char.IsUpper(x) ? " " + x : x.ToString())) : @Model.Genre</p>
+        <p class="card-text">@string.Concat(nameof(@Model.ReleaseDate).Select(x => Char.IsUpper(x) ? " " + x : x.ToString())) : @Model.ReleaseDate</p>
+        <p class="card-text">@string.Concat(nameof(@Model.DateAdded).Select(x => Char.IsUpper(x) ? " " + x : x.ToString())) : @Model.DateAdded</p>
+        <p class="card-text">@string.Concat(nameof(@Model.NumberInStock).Select(x => Char.IsUpper(x) ? " " + x : x.ToString())) : @Model.NumberInStock</p>
+    </div>
+</div>

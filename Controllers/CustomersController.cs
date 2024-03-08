@@ -22,7 +22,7 @@ namespace FirstProject.Controllers
 
         public ActionResult Index()
         {
-            List<Customer> customers = _context.Customers.ToList();
+            List<Customer> customers = _context.Customers.Include(c => c.MembershipType).ToList();
             return View(customers);
         }
 
@@ -33,6 +33,11 @@ namespace FirstProject.Controllers
             if (customer == null)
                 return View("Error");
             return View(customer);
+        }
+
+        public ActionResult New()
+        {
+            return View();
         }
     }
 }

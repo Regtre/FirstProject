@@ -5,4 +5,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Name</h2>
+<h2></h2>
+
+<div class="card border-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header">Customer Detail</div>
+    <div class="card-body">
+        <h4 class="card-title">@Model.Name</h4>
+        
+        <p class="card-text">@nameof(@Model.Address): @Model.Address</p>
+        <p class="card-text">@nameof(@Model.City): @Model.City</p>
+        <p class="card-text">@nameof(@Model.Country): @Model.Country</p>
+        <p class="card-text">@nameof(@Model.MembershipType): @Model.MembershipType.Name</p>
+        <p class="card-text">@nameof(@Model.Email): @Model.Email</p>
+        <p class="card-text">@nameof(@Model.Phone): @Model.Phone</p>
+        <p class="card-text">@nameof(@Model.BirthDate): @Model.BirthDate</p>
+
+    </div>
+</div>
