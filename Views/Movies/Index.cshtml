@@ -22,8 +22,16 @@
             //<a class="card-text" >@customer.Name</a>
             <tr>
                 <th scope="row">
-                    @Html.ActionLink($"{movie.Title}", "Details", "Movies", new { id = movie.Id }
-                        , new { @class = "card-text" })
+                    <div class="d-flex">
+                        @movie.Title
+                            <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" title="info" class="mx-3">
+                            <i class="fa-info-circle fa" aria-hidden="true"></i>
+                        </a>
+                            <a href="@Url.Action("Edit", "Movies", new { id = movie.Id })" title="modify">
+                            <i class="fa-pencil-square-o fa" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
                 </th>
                 <td>@movie.Genre.ToString()</td>
             </tr>
@@ -38,3 +46,8 @@
     </tbody>
     
 </table>
+
+
+<a href="@Url.Action("New", "Movies" )" title="Add customer">
+    <i class="fa-plus-circle fa fa-3x" aria-hidden="true"></i>
+</a>

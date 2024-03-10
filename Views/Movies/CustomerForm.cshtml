@@ -1,0 +1,36 @@
+﻿@model FirstProject.ViewModel.NewMovieViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+
+@using (Html.BeginForm("Save", "Movies"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Title)
+        @Html.TextBoxFor(m => m.Movie.Title, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.NumberInStock)
+        @Html.TextBoxFor(m => m.Movie.NumberInStock, new { @class = "form-control", @type = "number" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.ReleaseDate)
+        @Html.TextBoxFor(m => m.Movie.ReleaseDate, new { @class = "form-control", @type = "date" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.DateAdded)
+        @Html.TextBoxFor(m => m.Movie.DateAdded, new { @class = "form-control", @type = "date" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Genre)
+        @Html.DropDownListFor(m => m.Movie.Genre, new SelectList(Enum.GetValues(typeof(Genre)).Cast<Genre>().ToList(), "Id", "Name"),
+                "Select Membership Type", new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(m => m.Movie.Id)
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+}

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices.JavaScript;
 using FirstProject.Models;
+using FirstProject.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,16 +29,55 @@ namespace FirstProject.Controllers
 
         public ActionResult Details(int id)
         {
-            Customer? customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            Customer? customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
                 return View("Error");
             return View(customer);
         }
 
+        public ActionResult Edit(int id)
+        {
+            Customer? customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
+
+            if (customer == null)
+                return View("Error");
+
+            NewCustomerViewModel viewModel = new NewCustomerViewModel()
+            {
+                Customer = customer,
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+            return View("CustomerForm",viewModel);
+        }
+
         public ActionResult New()
         {
-            return View();
+            List<MembershipType> membershipTypes = _context.MembershipTypes.ToList();
+            NewCustomerViewModel viewModel = new NewCustomerViewModel()
+            {
+                MembershipTypes = membershipTypes,
+            };
+            return View("CustomerForm", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Customer customer)
+        {
+            if (customer.Id == 0)
+            {
+                _context.Customers.Add(customer);
+            }
+            else
+            {
+                Customer customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
+                customerInDb.Name = customer.Name;
+                customerInDb.BirthDate = customer.BirthDate;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.IsSubscribeToNewsletter = customer.IsSubscribeToNewsletter;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index","Customers");
         }
     }
 }

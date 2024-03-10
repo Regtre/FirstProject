@@ -23,7 +23,7 @@ namespace FirstProject.Controllers
 
         public ActionResult Random()
         {
-            Movie movie = new Movie(){Title = "Hitler"};
+            Movie movie = new Movie() { Title = "Hitler" };
             List<Customer> customers = new List<Customer>
             {
                 new Customer() { Name = "Rémy" },
@@ -38,6 +38,7 @@ namespace FirstProject.Controllers
 
             return View(viewModel);
         }
+
         // movies
         public ActionResult Index(int? pageIndex, string sortBy)
         {
@@ -46,7 +47,7 @@ namespace FirstProject.Controllers
             if (String.IsNullOrWhiteSpace(sortBy))
                 sortBy = "Name";
 
-            List<Movie> movies= _context.Movies.ToList();
+            List<Movie> movies = _context.Movies.ToList();
             return View(movies);
         }
 
@@ -61,6 +62,11 @@ namespace FirstProject.Controllers
             Movie? movie = _context.Movies.SingleOrDefault(m => m.Id == id);
             return View(movie);
         }
-        
+
+        public IActionResult New()
+        {
+            NewMovieViewModel viewModel = new NewMovieViewModel();
+            return View("CustomerForm", viewModel);
+        }
     }
 }
